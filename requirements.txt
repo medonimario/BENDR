@@ -1,0 +1,17 @@
+tqdm
+objgraph
+
+numpy
+pandas
+matplotlib
+seaborn
+
+torch
+torchvision
+torchaudio
+
+mne
+
+# DN3 version 0.2
+git+https://github.com/SPOClab-ca/dn3.git@v0.2-alpha#egg=dn3
+
