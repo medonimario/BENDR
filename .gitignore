@@ -3,7 +3,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 data/*
 !/**/.gitkeep
-results/*
+#results/*
 .vscode/
 
 ### Python template
