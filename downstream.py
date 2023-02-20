@@ -67,6 +67,11 @@ if __name__ == '__main__':
                     results.add_results_all_thinkers(process, ds_name, test, Fold=fold+1)
                 results.to_spreadsheet(args.results_filename)
 
+            model.contextualizer.save("contextualizer_BENDR.pt")
+            model.encoder.save("encoder_BENDR.pt")
+            time.sleep(30)
+            exit()
+
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process
             objgraph.show_backrefs(model, filename='sample-backref-graph.png')
