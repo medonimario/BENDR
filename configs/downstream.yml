@@ -1,6 +1,7 @@
 Configuratron:
   use_only:
     - mmidb
+    #- artifact
     #- bci_iv_2a
     #- ern
     #- erpbci

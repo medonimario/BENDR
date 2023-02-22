@@ -18,6 +18,8 @@ from dn3_ext import BENDRClassification, LinearHeadBENDR
 import mne
 mne.set_log_level(False)
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1,2"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Fine-tunes BENDER models.")
@@ -67,10 +69,11 @@ if __name__ == '__main__':
                     results.add_results_all_thinkers(process, ds_name, test, Fold=fold+1)
                 results.to_spreadsheet(args.results_filename)
 
-            model.contextualizer.save("contextualizer_BENDR.pt")
-            model.encoder.save("encoder_BENDR.pt")
-            time.sleep(30)
-            exit()
+            #model.contextualizer.save("contextualizer_BENDR_1.pt")
+            #model.encoder.save("encoder_BENDR_1.pt")
+            #torch.save(model.classifier.state_dict(), 'classifier_BENDR_1.pt')
+            #time.sleep(30)
+            #exit()
 
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process

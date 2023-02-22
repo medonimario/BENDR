@@ -22,6 +22,35 @@ mmidb:
   lr: 0.00001
   folds: 5
 
+artifact:
+  name: "TUH artifact"
+  toplevel: data/datasets/artifact
+  tmin: 0
+  tlen: 2
+  data_max: 0.001
+  data_min: -0.01
+  events:
+  - eyem
+  - musc
+  - elec
+  - eyem_musc
+  - musc_elec
+  - chew
+  - eyem_elec
+  - eyem_chew
+  - shiv
+  - chew_musc
+  - elpp
+  - chew_elec
+  - eyem_shiv
+  - shiv_elec
+  exclude_sessions:
+   - "aaaaaaju_s005_t000.edf"
+  train_params:
+    epochs: 7
+    batch_size: 4 # I find this dataset likes small batch sizes
+  lr: 0.00001
+  folds: 5
 
 #bci_iv_2a:
 #  name: "BCI Competition IV 2a"

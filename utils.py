@@ -6,7 +6,6 @@ from dn3.transforms.instance import To1020
 
 from dn3_ext import LoaderERPBCI, LinearHeadBENDR, BENDRClassification
 
-
 CUSTOM_LOADERS = dict(
     erpbci=LoaderERPBCI,
 )
