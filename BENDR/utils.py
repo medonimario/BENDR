@@ -4,7 +4,7 @@ import yaml
 from dn3.metrics.base import balanced_accuracy, auroc
 from dn3.transforms.instance import To1020
 
-from dn3_ext import LoaderERPBCI, LinearHeadBENDR, BENDRClassification
+from BENDR.dn3_ext import LoaderERPBCI, LinearHeadBENDR, BENDRClassification
 
 CUSTOM_LOADERS = dict(
     erpbci=LoaderERPBCI,

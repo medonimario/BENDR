@@ -1,5 +1,5 @@
 import torch
-from dn3_ext import BENDRClassification
+from BENDR.dn3_ext import BENDRClassification
 from tqdm import tqdm
 from dn3.trainable.processes import StandardClassification
 from dn3.metrics.base import balanced_accuracy
