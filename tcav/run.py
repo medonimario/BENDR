@@ -48,7 +48,7 @@ target =  'target_Seiz' #'target_left'
 # concepts are stored in folders with these names
 concepts = ['spsw', 'artf', 'bckg', 'gped', 'pled', 'eyem', 'musc'] # ['left_MI', 'artf', 'bckg', 'spsw', 'gped', 'bckg'] # ['left_MI', 'right_MI', 'eyem', 'musc'] #["eyem", "musc"]
 
-labels = ['target_noSeiz', 'target_Seiz']# ['target_left', 'target_right'] #has to be in correct order, left,target_noSeiz = 0, right,target_Seiz = 1
+labels = ['target_noSeiz', 'target_Seiz'] #['target_left', 'target_right'] #has to be in correct order, left,target_noSeiz = 0, right,target_Seiz = 1
 
 # Use your trained saved BENDR model layers here as a '.pth' file
 modelPath =  "/zhome/fb/9/153241/Desktop/Test/EEG_Thesis/BENDR/BENDR_SEIZ_Models/BENDR_SEIZ_fold_0.pth" # ".\BENDR\BENDR_pretrained\save_BENDR_model_LeftRight.pth"

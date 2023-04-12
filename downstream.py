@@ -1,25 +1,26 @@
+import os, sys
 import torch
 import tqdm
 import argparse
 
 import objgraph
-
 import time
-import utils
-from result_tracking import ThinkerwiseResultTracker
+
+from BENDR import utils
+from BENDR.result_tracking import ThinkerwiseResultTracker
 
 from dn3.configuratron import ExperimentConfig
 from dn3.data.dataset import Thinker
 from dn3.trainable.processes import StandardClassification
 
-from dn3_ext import BENDRClassification, LinearHeadBENDR
+from BENDR.dn3_ext import BENDRClassification, LinearHeadBENDR
 
 # Since we are doing a lot of loading, this is nice to suppress some tedious information
 import mne
 mne.set_log_level(False)
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Fine-tunes BENDER models.")
@@ -55,6 +56,8 @@ if __name__ == '__main__':
             if not args.random_init:
                 model.load_pretrained_modules(experiment.encoder_weights, experiment.context_weights,
                                               freeze_encoder=args.freeze_encoder)
+                
+                
             process = StandardClassification(model, metrics=added_metrics)
             process.set_optimizer(torch.optim.Adam(process.parameters(), ds.lr, weight_decay=0.01))
 
@@ -69,11 +72,12 @@ if __name__ == '__main__':
                     results.add_results_all_thinkers(process, ds_name, test, Fold=fold+1)
                 results.to_spreadsheet(args.results_filename)
 
-            #model.contextualizer.save("contextualizer_BENDR_1.pt")
-            #model.encoder.save("encoder_BENDR_1.pt")
-            #torch.save(model.classifier.state_dict(), 'classifier_BENDR_1.pt')
-            #time.sleep(30)
-            #exit()
+            
+            #model.contextualizer.save("contextualizer_BENDR_linear_checkpoint.pt")
+            # model.encoder.save("encoder_BENDR_linear_checkpoint.pt")
+            # torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_checkpoint.pt')
+            # time.sleep(30)
+            # exit()
 
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process
