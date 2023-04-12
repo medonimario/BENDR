@@ -269,7 +269,7 @@ class TCAV(object):
         target_class_for_compute_tcav_score = target_class
 
         cav_concept = concepts[0]
-
+        
         i_up = self.compute_tcav_score(
             mymodel, target_class_for_compute_tcav_score, cav_concept,
             cav_instance, acts[target_class][cav_instance.bottleneck],
