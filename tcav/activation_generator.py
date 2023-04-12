@@ -137,9 +137,6 @@ class EEGActivationGenerator(ActivationGeneratorBase):
 
         return eeg_tensor.to(dtype=torch.float32)
 
-
-
-
 class ImageActivationGenerator(ActivationGeneratorBase):
     """Activation generator for a basic image model"""
 
@@ -153,7 +150,7 @@ class ImageActivationGenerator(ActivationGeneratorBase):
         img_paths = [os.path.join(concept_dir, d)
                      for d in tf.io.gfile.listdir(concept_dir)]
         imgs = self.load_images_from_files(img_paths, self.max_examples,
-                                           shape=self.model.get_image_shape()[:2])
+                                           shape=self.model.get_image_sha       pe()[:2])
         return imgs
 
     def load_image_from_file(self, filename, shape):
