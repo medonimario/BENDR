@@ -1,5 +1,5 @@
 import torch
-from BENDR.dn3_ext import BENDRClassification
+from BENDR.dn3_ext import BENDRClassification, LinearHeadBENDR
 from tqdm import tqdm
 from dn3.trainable.processes import StandardClassification
 from dn3.metrics.base import balanced_accuracy
@@ -20,23 +20,7 @@ The BENDR class has several hyperparameters that can be customized, such as
 the size of the encoder and contextualizer layers, the number of projection layers,
 the dropout rate, and the span and probability of masking.
 """
-class BENDR(BENDRClassification):
-    def __init__(self, targets: int, samples: int, channels: int, device: str = 'cpu', encoder_h=512, contextualizer_hidden=3076,
-                 projection_head=False, new_projection_layers=0, dropout=0., trial_embeddings=None, layer_drop=0,
-                 keep_layers=None, mask_p_t=0.01, mask_p_c=0.005, mask_t_span=0.1, mask_c_span=0.1, multi_gpu=False):
-        super().__init__(targets, samples, channels, encoder_h, contextualizer_hidden, projection_head,
-                 new_projection_layers, dropout, trial_embeddings, layer_drop, keep_layers,
-                 mask_p_t, mask_p_c, mask_t_span, mask_c_span, multi_gpu)
-        
-        if device is not None:
-            self.device = torch.device(device)
-            self.to(self.device)
-        else:
-            self.device = None
-
-        self.input_shape = torch.Size((channels, samples))
-        self.output_shape = torch.Size((targets, ))
-
+class BENDR:
     def freeze_classifier(self, unfreeze: bool = False) -> None:
         """
         Unfreeze classifier weights
@@ -65,67 +49,6 @@ class BENDR(BENDRClassification):
         self.classifier.load_state_dict(classifier_state_dict, strict=True)
 
         self.freeze_classifier(not freeze)
-
-    def load_all(self, encoder_file: str, contextualizer_file: str, classifier_file: str,
-                strict: bool = True, freeze_encoder: bool = False, freeze_contextualizer: bool = False,
-                freeze_classifier: bool = False, verbose: bool = False) -> None:
-        """
-        Load encoder, contextualizer and classifier weights from files
-        Parameters
-        ----------
-        encoder_file : str
-            Path to encoder weights file
-        contextualizer_file : str
-            Path to contextualizer weights file
-        classifier_file : str
-            Path to classifier weights file
-        strict : bool
-            Strict loading of encoder and contextualizer weights
-        freeze_encoder : bool
-            Freeze encoder weights
-        freeze_contextualizer : bool
-            Freeze contextualizer weights
-        freeze_classifier : bool
-            Freeze classifier weights
-        """
-
-        if verbose: print("Loading encoder... ", end="")
-        if self.device is not None:
-            encoder_state_dict = torch.load(encoder_file, self.device)
-        else:
-            encoder_state_dict = torch.load(encoder_file)
-        self.encoder.load_state_dict(encoder_state_dict, strict=strict)
-        self.encoder.freeze_features(unfreeze=not freeze_encoder)
-        if verbose: print("done")
-
-        if verbose: print("Loading contextualizer... ", end="")
-        if self.device is not None:
-            contextualizer_state_dict = torch.load(contextualizer_file, self.device)
-        else:
-            contextualizer_state_dict = torch.load(contextualizer_file)
-        self.contextualizer.load_state_dict(contextualizer_state_dict, strict=True)
-        self.contextualizer.freeze_features(unfreeze=not freeze_contextualizer)
-        if verbose: print("done")
-
-        if verbose: print("Loading classifier... ", end="")
-        self.load_classifier(classifier_file, freeze=freeze_classifier)
-        if verbose: print("done")
-
-    def save_all(self, encoder_file: str, contextualizer_file: str, classifier_file: str):
-        """
-        Save encoder, contextualizer and classifier weights to files
-        Parameters
-        ----------
-        encoder_file : str
-            Path to encoder weights file
-        contextualizer_file : str
-            Path to contextualizer weights file
-        classifier_file : str
-            Path to classifier weights file
-        """
-        torch.save(self.encoder.state_dict(), encoder_file)
-        torch.save(self.contextualizer.state_dict(), contextualizer_file)
-        torch.save(self.classifier.state_dict(), classifier_file)
 
     def feedforward(self, x: torch.Tensor, return_features: bool = False, grad: bool = False) -> torch.Tensor:
         """
@@ -224,7 +147,86 @@ class BENDR(BENDRClassification):
             return predictions, probs
         else:
             return predictions
+
+
+class FullBENDR(BENDRClassification, BENDR):
+    def __init__(self, targets: int, samples: int, channels: int, device: str = 'cpu', encoder_h=512, contextualizer_hidden=3076,
+                 projection_head=False, new_projection_layers=0, dropout=0., trial_embeddings=None, layer_drop=0,
+                 keep_layers=None, mask_p_t=0.01, mask_p_c=0.005, mask_t_span=0.1, mask_c_span=0.1, multi_gpu=False):
+        super().__init__(targets, samples, channels, encoder_h, contextualizer_hidden, projection_head,
+                 new_projection_layers, dropout, trial_embeddings, layer_drop, keep_layers,
+                 mask_p_t, mask_p_c, mask_t_span, mask_c_span, multi_gpu)
         
+        if device is not None:
+            self.device = torch.device(device)
+            self.to(self.device)
+        else:
+            self.device = None
+
+        self.input_shape = torch.Size((channels, samples))
+        self.output_shape = torch.Size((targets, ))
+        
+    def load_all(self, encoder_file: str, contextualizer_file: str, classifier_file: str,
+                strict: bool = True, freeze_encoder: bool = False, freeze_contextualizer: bool = False,
+                freeze_classifier: bool = False, verbose: bool = False) -> None:
+        """
+        Load encoder, contextualizer and classifier weights from files
+        Parameters
+        ----------
+        encoder_file : str
+            Path to encoder weights file
+        contextualizer_file : str
+            Path to contextualizer weights file
+        classifier_file : str
+            Path to classifier weights file
+        strict : bool
+            Strict loading of encoder and contextualizer weights
+        freeze_encoder : bool
+            Freeze encoder weights
+        freeze_contextualizer : bool
+            Freeze contextualizer weights
+        freeze_classifier : bool
+            Freeze classifier weights
+        """
+
+        if verbose: print("Loading encoder... ", end="")
+        if self.device is not None:
+            encoder_state_dict = torch.load(encoder_file, self.device)
+        else:
+            encoder_state_dict = torch.load(encoder_file)
+        self.encoder.load_state_dict(encoder_state_dict, strict=strict)
+        self.encoder.freeze_features(unfreeze=not freeze_encoder)
+        if verbose: print("done")
+
+        if verbose: print("Loading contextualizer... ", end="")
+        if self.device is not None:
+            contextualizer_state_dict = torch.load(contextualizer_file, self.device)
+        else:
+            contextualizer_state_dict = torch.load(contextualizer_file)
+        self.contextualizer.load_state_dict(contextualizer_state_dict, strict=True)
+        self.contextualizer.freeze_features(unfreeze=not freeze_contextualizer)
+        if verbose: print("done")
+
+        if verbose: print("Loading classifier... ", end="")
+        self.load_classifier(classifier_file, freeze=freeze_classifier)
+        if verbose: print("done")
+
+    def save_all(self, encoder_file: str, contextualizer_file: str, classifier_file: str):
+        """
+        Save encoder, contextualizer and classifier weights to files
+        Parameters
+        ----------
+        encoder_file : str
+            Path to encoder weights file
+        contextualizer_file : str
+            Path to contextualizer weights file
+        classifier_file : str
+            Path to classifier weights file
+        """
+        torch.save(self.encoder.state_dict(), encoder_file)
+        torch.save(self.contextualizer.state_dict(), contextualizer_file)
+        torch.save(self.classifier.state_dict(), classifier_file)
+
     def fit(self, training, validation=None, warmup_frac: float = 0.1, retain_best: str = 'bac',
             freeze_contextualizer: bool = False, freeze_encoder: bool = False, freeze_classifier: bool = False,
             learning_rate: float = 1e-05, weight_decay: float = 0.01, pin_memory: bool = False,
@@ -240,3 +242,103 @@ class BENDR(BENDRClassification):
 
         process.fit(training_dataset=training, validation_dataset=validation, warmup_frac=warmup_frac,
                     retain_best=retain_best, pin_memory=pin_memory, **kwargs)
+
+# Make a class called LinearBENDR that is the same as BENDR but with LinearHeadBENDR as its parent class
+class LinearBENDR(LinearHeadBENDR, BENDR):
+    def __init__(self, targets: int, samples: int, channels: int, device: str = 'cpu', encoder_h: int = 512,
+                 projection_head: bool = False, enc_do: float = 0.1, feat_do: float = 0.4,
+                 pool_length: int = 4, mask_p_t: float = 0.01, mask_p_c: float = 0.005,
+                 mask_t_span: float = 0.05, mask_c_span: float = 0.1, classifier_layers: int = 1):
+
+        super().__init__(targets, samples, channels, encoder_h, projection_head, enc_do, feat_do, pool_length,
+                            mask_p_t, mask_p_c, mask_t_span, mask_c_span, classifier_layers)
+        
+        if device is not None:
+            self.device = torch.device(device)
+            self.to(self.device)
+        else:
+            self.device = None
+
+        self.input_shape = torch.Size((channels, samples))
+        self.output_shape = torch.Size((targets, ))
+        
+    def load_all(self, encoder_file: str, enc_augment: str, classifier_file: str, extended_classifier_file: str,
+                strict: bool = True, freeze_encoder: bool = False, freeze_enc_augment: bool = False,
+                freeze_classifier: bool = False, freeze_extended_classifier: bool = False, verbose: bool = False) -> None:
+        """
+        Load encoder, contextualizer and classifier weights from files
+        Parameters
+        ----------
+        encoder_file : str
+            Path to encoder weights file
+        enc_augment : str
+            Path to enc_augment weights file
+        classifier_file : str
+            Path to classifier weights file
+        extended_classifier_file : str
+            Path to extended classifier weights file
+        strict : bool
+            Strict loading of encoder and contextualizer weights
+        freeze_encoder : bool
+            Freeze encoder weights
+        freeze_enc_augment : bool
+            Freeze enc_augment weights
+        freeze_classifier : bool
+            Freeze classifier weights
+        freeze_extended_classifier : bool
+            Freeze extended classifier weights
+        """
+
+        if verbose: print("Loading encoder... ", end="")
+        if self.device is not None:
+            encoder_state_dict = torch.load(encoder_file, self.device)
+        else:
+            encoder_state_dict = torch.load(encoder_file)
+            
+        self.encoder.load_state_dict(encoder_state_dict, strict=strict)
+        self.encoder.freeze_features(unfreeze=not freeze_encoder)
+        if verbose: print("done")
+        
+        if verbose: print("Loading enc_augment... ", end="")
+        if self.device is not None:
+            enc_augment_state_dict = torch.load(enc_augment, self.device)
+        else:
+            enc_augment_state_dict = torch.load(enc_augment)
+            
+        self.enc_augment.load_state_dict(enc_augment_state_dict, strict=strict)
+        self.enc_augment.freeze_features(unfreeze=not freeze_enc_augment)
+        if verbose: print("done")
+        
+        if verbose: print("Loading classifier... ", end="")
+        self.load_classifier(classifier_file, freeze=freeze_classifier)
+        if verbose: print("done")
+        
+        if verbose: print("Loading extended classifier... ", end="")
+        if self.device is not None:
+            extended_classifier_state_dict = torch.load(extended_classifier_file, self.device)
+        else:
+            extended_classifier_state_dict = torch.load(extended_classifier_file)
+        
+        self.extended_classifier.load_state_dict(extended_classifier_state_dict, strict=strict)
+        self.extended_classifier.freeze_features(unfreeze=not freeze_extended_classifier)
+        if verbose: print("done")
+        
+    def save_all(self, encoder_file: str, enc_augment: str, classifier_file: str, extended_classifier_file: str):
+        """
+        Save encoder, contextualizer and classifier weights to files
+        Parameters
+        ----------
+        encoder_file : str
+            Path to encoder weights file
+        enc_augment : str
+            Path to enc_augment weights file
+        classifier_file : str
+            Path to classifier weights file
+        extended_classifier_file : str
+            Path to extended classifier weights file
+        """
+        
+        torch.save(self.encoder.state_dict(), encoder_file)
+        torch.save(self.enc_augment.state_dict(), enc_augment)
+        torch.save(self.classifier.state_dict(), classifier_file)
+        torch.save(self.extended_classifier.state_dict(), extended_classifier_file)
