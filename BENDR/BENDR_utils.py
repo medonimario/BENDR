@@ -76,9 +76,10 @@ class BENDR:
         self.return_features = return_features
 
         if grad:
-            output = super().forward(x.to(self.device))
+            output = self.forward(x.to(self.device))
         else:
-            with torch.no_grad(): output = super().forward(x.to(self.device))
+            with torch.no_grad():
+                output = self.forward(x.to(self.device))
 
         if return_features:
             return output[0], output[1]
@@ -305,8 +306,10 @@ class LinearBENDR(LinearHeadBENDR, BENDR):
         else:
             enc_augment_state_dict = torch.load(enc_augment)
             
-        self.enc_augment.load_state_dict(enc_augment_state_dict, strict=strict)
-        self.enc_augment.freeze_features(unfreeze=not freeze_enc_augment)
+        self.enc_augment.load_state_dict(enc_augment_state_dict, strict=strict)       
+        for param in self.enc_augment.parameters():
+                param.requires_grad = not freeze_enc_augment
+        
         if verbose: print("done")
         
         if verbose: print("Loading classifier... ", end="")
@@ -320,7 +323,9 @@ class LinearBENDR(LinearHeadBENDR, BENDR):
             extended_classifier_state_dict = torch.load(extended_classifier_file)
         
         self.extended_classifier.load_state_dict(extended_classifier_state_dict, strict=strict)
-        self.extended_classifier.freeze_features(unfreeze=not freeze_extended_classifier)
+        for param in self.enc_augment.parameters():
+                param.requires_grad = not freeze_classifier
+        
         if verbose: print("done")
         
     def save_all(self, encoder_file: str, enc_augment: str, classifier_file: str, extended_classifier_file: str):

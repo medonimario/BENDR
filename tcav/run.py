@@ -1,7 +1,7 @@
 import cav as cav
 import model as model
 import tcav as tcav
-import utils_tcav as utils
+import tcav.utils as utils
 import utils_plot as utils_plot  # utils_plot requires matplotlib
 import os
 import torch
@@ -44,7 +44,7 @@ utils.make_dir_if_not_exists(cav_dir)
 # this is a regularizer penalty parameter for linear classifier to get CAVs.
 alphas = [0.1]
 
-target =  'target_Seiz' #'target_left'
+target =  #'target_Seiz' #'target_left'
 # concepts are stored in folders with these names
 concepts = ['spsw', 'artf', 'bckg', 'gped', 'pled', 'eyem', 'musc'] # ['left_MI', 'artf', 'bckg', 'spsw', 'gped', 'bckg'] # ['left_MI', 'right_MI', 'eyem', 'musc'] #["eyem", "musc"]
 
