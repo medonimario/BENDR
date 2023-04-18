@@ -184,52 +184,52 @@ def plot_results(results, random_counterpart=None, random_concepts=None, num_ran
 
   # histogram plots
   # Moved this to collab
-  if plot_hist:
+  # 'if plot_hist:
 
-    palette ={"left_MI": "blue", "right_MI": "red", "eyem": "g", "random": "grey", "musc" : "yellow"}
+  #   palette ={"left_MI": "blue", "right_MI": "red", "eyem": "g", "random": "grey", "musc" : "yellow"}
     
-    for bottlenecks in df_result['Bottleneck'].unique():
-      data = df_result[df_result['Bottleneck'] == bottlenecks]
-      # set figure
-      plt.subplots(nrows=1, ncols=4, sharey=True,figsize=(15,4));
-      #plt.suptitle(f'Histogram of TCAV scores for each concept in {bottlenecks}', fontsize =20);
+  #   for bottlenecks in df_result['Bottleneck'].unique():
+  #     data = df_result[df_result['Bottleneck'] == bottlenecks]
+  #     # set figure
+  #     plt.subplots(nrows=1, ncols=4, sharey=True,figsize=(15,4));
+  #     #plt.suptitle(f'Histogram of TCAV scores for each concept in {bottlenecks}', fontsize =20);
       
-      # first concept
-      plt.subplot(1, 4, 1);
-      ax = sns.histplot(data=data[data['Concept'].isin(['left_MI','random'])], x="TCAV score", hue_order =['left_MI','random'],
-      hue="Concept", stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
-      sns.move_legend( ax, loc = "upper left", fontsize = 'large');
-      ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
-      ax.set_ylabel("Frequency")#,fontsize =  'xx-large');
-      plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
-      # 2nd
-      plt.subplot(1, 4, 2);
-      ax = sns.histplot(data=data[data['Concept'].isin(['right_MI','random'])], x="TCAV score", hue_order = ['right_MI','random'],
-      hue="Concept", stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
-      sns.move_legend( ax, loc = "upper left",fontsize = 'large');
-      ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
-      plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
-      # 3rd
-      plt.subplot(1, 4, 3);
-      ax = sns.histplot(data=data[data['Concept'].isin(['eyem','random'])], x="TCAV score", hue="Concept",
-      hue_order = ['eyem','random'],stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
-      sns.move_legend( ax, loc = "upper left", fontsize = 'large');
-      ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
-      plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
+  #     # first concept
+  #     plt.subplot(1, 4, 1);
+  #     ax = sns.histplot(data=data[data['Concept'].isin(['left_MI','random'])], x="TCAV score", hue_order =['left_MI','random'],
+  #     hue="Concept", stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
+  #     sns.move_legend( ax, loc = "upper left", fontsize = 'large');
+  #     ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
+  #     ax.set_ylabel("Frequency")#,fontsize =  'xx-large');
+  #     plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
+  #     # 2nd
+  #     plt.subplot(1, 4, 2);
+  #     ax = sns.histplot(data=data[data['Concept'].isin(['right_MI','random'])], x="TCAV score", hue_order = ['right_MI','random'],
+  #     hue="Concept", stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
+  #     sns.move_legend( ax, loc = "upper left",fontsize = 'large');
+  #     ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
+  #     plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
+  #     # 3rd
+  #     plt.subplot(1, 4, 3);
+  #     ax = sns.histplot(data=data[data['Concept'].isin(['eyem','random'])], x="TCAV score", hue="Concept",
+  #     hue_order = ['eyem','random'],stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
+  #     sns.move_legend( ax, loc = "upper left", fontsize = 'large');
+  #     ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
+  #     plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
 
-      plt.subplot(1, 4, 4);
-      ax = sns.histplot(data=data[data['Concept'].isin(['musc','random'])], x="TCAV score", hue="Concept",
-      hue_order = ['musc','random'],stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
-      sns.move_legend( ax, loc = "upper left", fontsize = 'large');
-      ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
-      plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
+  #     plt.subplot(1, 4, 4);
+  #     ax = sns.histplot(data=data[data['Concept'].isin(['musc','random'])], x="TCAV score", hue="Concept",
+  #     hue_order = ['musc','random'],stat = 'frequency', binrange = (0,1),common_norm=False, bins = 20, element="step", palette=palette);
+  #     sns.move_legend( ax, loc = "upper left", fontsize = 'large');
+  #     ax.set_xlabel("TCAV score")#,fontsize = 'xx-large');
+  #     plt.axvline(0.5, 0,10, ls = '--', lw = 0.8, color = 'grey');
       
-      # finish figure
-      plt.tight_layout();
-      if save_fig:
-        print('Now overwritting and saving figure')
-        plt.savefig(f'./BENDR/SavedResults_tcav/histogram_{results[0]["target_class"]}_{bottlenecks}.pdf')
-      plt.show();
+  #     # finish figure
+  #     plt.tight_layout();
+  #     if save_fig:
+  #       print('Now overwritting and saving figure')
+  #       plt.savefig(f'./BENDR/SavedResults_tcav/histogram_{results[0]["target_class"]}_{bottlenecks}.pdf')
+  #     plt.show();'
       
       
   # subtract number of random experiments

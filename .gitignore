@@ -1,4 +1,5 @@
 *.pt
+*.pkl
 
 # Created by .ignore support plugin (hsz.mobi)
 data/*
