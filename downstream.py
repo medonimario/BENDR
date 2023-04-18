@@ -73,11 +73,14 @@ if __name__ == '__main__':
                 results.to_spreadsheet(args.results_filename)
 
             
-            #model.contextualizer.save("contextualizer_BENDR_linear_checkpoint.pt")
-            # model.encoder.save("encoder_BENDR_linear_checkpoint.pt")
-            # torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_checkpoint.pt')
-            # time.sleep(30)
-            # exit()
+            
+            torch.save(model.encoder.state_dict(), 'encoder_BENDR_linear_2_1024_20.pt')
+            torch.save(model.enc_augment.state_dict(), 'enc_augment_BENDR_linear_2_1024_20.pt')
+            torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_2_1024_20.pt')
+            torch.save(model.extended_classifier.state_dict(), 'extended_classifier_BENDR_linear_2_1024_20.pt')
+            
+            time.sleep(30)
+            exit()
 
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process
