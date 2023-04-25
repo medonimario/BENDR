@@ -45,7 +45,7 @@ class TCAV(object):
                            concept,
                            cav,
                            class_acts,
-                           run_parallel=True,
+                           run_parallel=False,
                            num_workers=10):
         """Compute TCAV score.
         Args:
