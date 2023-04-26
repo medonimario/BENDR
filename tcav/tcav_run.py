@@ -16,7 +16,7 @@ import tcav as tcav
 import tensorflow as tf
 
 from pathlib import Path
-folder_path = Path('/home/s194260/BENDR')
+folder_path = Path('')
 
 encoder_weights = folder_path / 'encoder_BENDR_linear_2_1024_20.pt'
 enc_augment_weights = folder_path / 'enc_augment_BENDR_linear_2_1024_20.pt'
@@ -28,17 +28,21 @@ model.load_all(encoder_weights, enc_augment_weights, classifier_weights, extende
 model = model.train(False)
 #model = model.to(torch.device('cpu'))
 
-source_dir = '/scratch/s194260/concepts_tuh' #'/scratch/s194260/concepts_mmidb_tasks_T0' #'/scratch/s194260/concepts_tuh'
-results_dir =  '/scratch/s194260/tcav_results' 
-activation_dir = '/scratch/s194260/activations2'
-cav_dir = '/scratch/s194260/cavs2'
+
+from pathlib import Path
+data_dir = Path('data')
+
+source_dir = data_dir / 'concepts_tuh' #'/scratch/s194260/concepts_mmidb_tasks_T0' #'/scratch/s194260/concepts_tuh'
+results_dir =  data_dir / 'tcav_results' 
+activation_dir = data_dir / 'activations'
+cav_dir = data_dir / 'cavs'
 bottlenecks = ['encoder', 'enc_augment', 'summarizer', 'extended_classifier', 'classifier']
 alphas = [0.1]
 
 target =  'Left fist, performed'
 
 # concepts are stored in folders with these names
-#concepts = []
+# concepts = []
 # concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
 #             "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
 #             "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
@@ -47,7 +51,7 @@ target =  'Left fist, performed'
 #             "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
 #             "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
 #concepts = ['Left fist, performed 2', 'Right fist, performed 2']
-concepts = ['random500_48', 'random500_49']
+concepts = ['random_original']
 
 # concepts = ['Alpha_Somatosensory and Motor Cortex-lh', 'Alpha_Somatosensory and Motor Cortex-rh',
 #             'Alpha_Primary Visual Cortex (V1)-lh', 'Alpha_Primary Visual Cortex (V1)-rh',
@@ -90,7 +94,7 @@ act_generator = act_gen.EEGActivationGenerator(
    )
 
 tf.compat.v1.logging.set_verbosity(2)
-num_random_exp = 25
+num_random_exp = 5
 
 my_tcav = tcav.TCAV(target,
                    concepts,
@@ -105,5 +109,6 @@ results = my_tcav.run(run_parallel = True)
 
 # Save dictionary that also contains numpy array
 import pickle
-with open('tcav_results_left_random.pkl', 'wb') as handle:
+with open('tcav_results_left_random_original.pkl', 'wb') as handle:
     pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
