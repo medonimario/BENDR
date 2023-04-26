@@ -17,7 +17,7 @@ mmidb:
     - S092
     - S100
   train_params:
-    epochs: 10
+    epochs: 20
     batch_size: 4 # I find this dataset likes small batch sizes
   lr: 0.00001
   folds: 105
