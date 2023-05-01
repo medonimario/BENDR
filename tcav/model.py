@@ -66,22 +66,13 @@ class ModelWrapper(object):
 
         self.model.to(self.model.device)
         self.model.eval()
-        
-        
-        try:
-            inputs = examples.to(self.model.device)
-            self.model(inputs)
-            acts = bn_activation.detach().cpu().numpy()
-            del inputs
-            handle.remove()
-            torch.cuda.empty_cache()
-        
-        except Exception as e:
-            print("Error:", e)
-            print("Example shape:", examples.shape)
-            #print("Example:", examples)
-            print("bn_activation:", bn_activation)
-            exit()        
+    
+        inputs = examples.to(self.model.device)
+        self.model(inputs)
+        acts = bn_activation.detach().cpu().numpy()
+        del inputs
+        handle.remove()
+        torch.cuda.empty_cache()      
 
         return acts
     

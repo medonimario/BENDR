@@ -191,7 +191,7 @@ class TCAV(object):
             pool = multiprocessing.Pool(num_workers)
             for i, res in enumerate(pool.imap(
                     lambda p: self._run_single_set(
-                        p, overwrite=overwrite, run_parallel=run_parallel),
+                        p, overwrite=overwrite, run_parallel=True),
                     self.params), 1):
                 tf.compat.v1.logging.info(
                     'Finished running param %s of %s' % (i, len(self.params)))
@@ -201,7 +201,7 @@ class TCAV(object):
             for i, param in enumerate(self.params):
                 print('Running param %s of %s' % (i, len(self.params)))
                 results.append(self._run_single_set(
-                    param, overwrite=overwrite, run_parallel=run_parallel))
+                    param, overwrite=overwrite, run_parallel=True))
 
         print('Done running %s params. Took %s seconds...' % (len(
             self.params), time.time() - now))
