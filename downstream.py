@@ -22,6 +22,51 @@ mne.set_log_level(False)
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
+def get_raw(edf_file_path):
+    # Read the EDF file and load the data into a Raw object
+    raw = mne.io.read_raw_edf(edf_file_path, verbose=False, preload=True)
+
+    # Standardize channel names according to the EEGBCI dataset
+    mne.datasets.eegbci.standardize(raw)
+
+    # Create a standard 10-20 montage
+    montage = mne.channels.make_standard_montage('standard_1020')
+
+    # Rename channels, removing dots and capitalizing names, with some specific adjustments
+    new_names = {
+        ch_name: ch_name.rstrip('.').upper().replace('Z', 'z').replace('FP', 'Fp')
+        for ch_name in raw.ch_names
+    }
+    raw.rename_channels(new_names)
+
+    # Set average reference for EEG channels and apply the montage
+    raw.set_eeg_reference(ref_channels='average', projection=True, verbose=False)
+    raw.set_montage(montage)
+
+    # Apply projection to the data
+    raw.apply_proj(verbose=False)
+
+    # Rename P7 and P8 channels to T5 and T6, if present
+    if 'P7' in raw.ch_names:
+        raw.rename_channels({'P7': 'T5'})
+    if 'P8' in raw.ch_names:
+        raw.rename_channels({'P8': 'T6'})
+
+    # Remove dots from channel names and capitalize them
+    new_names = {ch_name: ch_name.rstrip('.').upper() for ch_name in raw.ch_names}
+    raw.rename_channels(new_names)
+
+    # Resample the data to 256 Hz
+    raw.resample(256)
+
+    # Apply bandpass filter between 0.1 and 100 Hz
+    raw.filter(0.1, 100, verbose=False)
+
+    # Apply notch filter at 60 Hz
+    raw.notch_filter(60, verbose=False)
+
+    return raw
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Fine-tunes BENDER models.")
     parser.add_argument('model', choices=utils.MODEL_CHOICES)
@@ -43,6 +88,7 @@ if __name__ == '__main__':
         results = ThinkerwiseResultTracker()
 
     for ds_name, ds in tqdm.tqdm(experiment.datasets.items(), total=len(experiment.datasets.items()), desc='Datasets'):
+        ds.add_custom_raw_loader(get_raw)
         added_metrics, retain_best, _ = utils.get_ds_added_metrics(ds_name, args.metrics_config)
         for fold, (training, validation, test) in enumerate(tqdm.tqdm(utils.get_lmoso_iterator(ds_name, ds))):
 
@@ -71,16 +117,14 @@ if __name__ == '__main__':
                 else:
                     results.add_results_all_thinkers(process, ds_name, test, Fold=fold+1)
                 results.to_spreadsheet(args.results_filename)
-
             
+            # torch.save(model.encoder.state_dict(), 'encoder_BENDR_linear_2_1024_20.pt')
+            # torch.save(model.enc_augment.state_dict(), 'enc_augment_BENDR_linear_2_1024_20.pt')
+            # torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_2_1024_20.pt')
+            # torch.save(model.extended_classifier.state_dict(), 'extended_classifier_BENDR_linear_2_1024_20.pt')
             
-            torch.save(model.encoder.state_dict(), 'encoder_BENDR_linear_2_1024_20.pt')
-            torch.save(model.enc_augment.state_dict(), 'enc_augment_BENDR_linear_2_1024_20.pt')
-            torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_2_1024_20.pt')
-            torch.save(model.extended_classifier.state_dict(), 'extended_classifier_BENDR_linear_2_1024_20.pt')
-            
-            time.sleep(30)
-            exit()
+            # time.sleep(30)
+            # exit()
 
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process

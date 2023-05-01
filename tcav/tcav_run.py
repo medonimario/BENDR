@@ -28,14 +28,22 @@ model.load_all(encoder_weights, enc_augment_weights, classifier_weights, extende
 model = model.train(False)
 #model = model.to(torch.device('cpu'))
 
+import datetime
+now = datetime.datetime.now()
+date = now.strftime("%m%d%H%M%S")
 
 from pathlib import Path
-data_dir = Path('data')
+data_dir = Path('/scratch/s194260')
 
-source_dir = data_dir / 'concepts_tuh' #'/scratch/s194260/concepts_mmidb_tasks_T0' #'/scratch/s194260/concepts_tuh'
+source_dir = data_dir / 'concepts_tuh_new'
 results_dir =  data_dir / 'tcav_results' 
-activation_dir = data_dir / 'activations'
-cav_dir = data_dir / 'cavs'
+
+activation_dir = data_dir / 'activations' / f'activations_{date}'
+cav_dir = data_dir / 'cavs' / f'cavs_{date}'
+
+os.mkdir(activation_dir)
+os.mkdir(cav_dir)
+
 bottlenecks = ['encoder', 'enc_augment', 'summarizer', 'extended_classifier', 'classifier']
 alphas = [0.1]
 
@@ -43,15 +51,15 @@ target =  'Left fist, performed'
 
 # concepts are stored in folders with these names
 # concepts = []
-# concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
-#             "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
-#             "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
-#             "Alpha_Premotor Cortex-lh", "Alpha_Premotor Cortex-rh",
-#             "Alpha_Primary Visual Cortex (V1)-lh","Alpha_Primary Visual Cortex (V1)-rh",
-#             "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
-#             "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
+concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
+            "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
+            "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
+            "Alpha_Premotor Cortex-lh", "Alpha_Premotor Cortex-rh",
+            "Alpha_Primary Visual Cortex (V1)-lh","Alpha_Primary Visual Cortex (V1)-rh",
+            "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
+            "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
 #concepts = ['Left fist, performed 2', 'Right fist, performed 2']
-concepts = ['random_original']
+#concepts = ['random_original']
 
 # concepts = ['Alpha_Somatosensory and Motor Cortex-lh', 'Alpha_Somatosensory and Motor Cortex-rh',
 #             'Alpha_Primary Visual Cortex (V1)-lh', 'Alpha_Primary Visual Cortex (V1)-rh',
@@ -94,7 +102,7 @@ act_generator = act_gen.EEGActivationGenerator(
    )
 
 tf.compat.v1.logging.set_verbosity(2)
-num_random_exp = 5
+num_random_exp = 25
 
 my_tcav = tcav.TCAV(target,
                    concepts,
@@ -105,10 +113,10 @@ my_tcav = tcav.TCAV(target,
                    num_random_exp=num_random_exp)
 
 print('Loading mytcav')
-results = my_tcav.run(run_parallel = True)
+results = my_tcav.run(run_parallel = False)
 
 # Save dictionary that also contains numpy array
 import pickle
-with open('tcav_results_left_random_original.pkl', 'wb') as handle:
+with open(f'tcav_results_{date}_left', 'wb') as handle:
     pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
