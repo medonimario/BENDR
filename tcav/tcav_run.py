@@ -40,7 +40,6 @@ if __name__ == '__main__':
     data_path = Path(args.data_path)
     
     model_path = data_path / Path('checkpoints')
-    
 
     encoder_weights = model_path / 'encoder_BENDR_linear_2_1024_20.pt'
     enc_augment_weights = model_path / 'enc_augment_BENDR_linear_2_1024_20.pt'
@@ -66,34 +65,7 @@ if __name__ == '__main__':
     alphas = [0.1]
 
     target =  'Left fist, performed'
-
-    # concepts are stored in folders with these names
-    # concepts = []
-    # concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
-    #             "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
-    #             "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
-    #             "Alpha_Premotor Cortex-lh", "Alpha_Premotor Cortex-rh",
-    #             "Alpha_Primary Visual Cortex (V1)-lh","Alpha_Primary Visual Cortex (V1)-rh",
-    #             "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
-    #             "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
-    #concepts = ['random_original']
-
-    # concepts = ['Alpha_Somatosensory and Motor Cortex-lh', 'Alpha_Somatosensory and Motor Cortex-rh',
-    #             'Alpha_Primary Visual Cortex (V1)-lh', 'Alpha_Primary Visual Cortex (V1)-rh',
-    #             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
-    #             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh']
-
-    # concepts = ['Alpha_Premotor Cortex-lh', 'Alpha_Premotor Cortex-rh',
-    #             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh',
-    #             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
-    #             'Alpha_MT+ Complex and Neighboring Visual Areas-lh', 'Alpha_MT+ Complex and Neighboring Visual Areas-rh',
-    #             'Alpha_Dorsal Stream Visual Cortex-lh', 'Alpha_Dorsal Stream Visual Cortex-rh']
-
-    # Go through each folder in source_dir add add the name of the folder to concepts list if it has more than 25 .pkl files in it
-    # for concept in os.listdir(source_dir):
-    #     if len(os.listdir(os.path.join(source_dir, concept))) > 25:
-    #         concepts.append(concept)
-
+    
     labels = ['Left fist, performed', 'Right fist, performed']
         
     tcav_model = BENDRWrapper(model, labels, 1024)
@@ -103,7 +75,7 @@ if __name__ == '__main__':
     )
 
     tf.compat.v1.logging.set_verbosity(2)
-    num_random_exp = 3
+    num_random_exp = 25
 
     my_tcav = tcav.TCAV(target,
                     concepts,
