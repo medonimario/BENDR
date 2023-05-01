@@ -53,7 +53,8 @@ def process_what_to_run_expand(pairs_to_test,
             tf.logging.info('PAIR NOT PROCCESSED')
         new_pairs_to_test.extend(new_pairs_to_test_t)
 
-    all_concepts = list(set(flatten([cs + [tc] for tc, cs in new_pairs_to_test])))
+    all_concepts = list(
+        set(flatten([cs + [tc] for tc, cs in new_pairs_to_test])))
 
     return all_concepts, new_pairs_to_test
 
@@ -143,7 +144,8 @@ def print_results(results, random_counterpart=None, random_concepts=None, num_ra
         if result['bottleneck'] not in result_summary[result['cav_concept']]:
             result_summary[result['cav_concept']][result['bottleneck']] = []
 
-        result_summary[result['cav_concept']][result['bottleneck']].append(result)
+        result_summary[result['cav_concept']
+                       ][result['bottleneck']].append(result)
 
         # store random
         if is_random_concept(result['cav_concept']):
@@ -160,7 +162,8 @@ def print_results(results, random_counterpart=None, random_concepts=None, num_ra
             print(" ", "Concept =", concept)
 
             for bottleneck in result_summary[concept]:
-                i_ups = [item['i_up'] for item in result_summary[concept][bottleneck]]
+                i_ups = [item['i_up']
+                         for item in result_summary[concept][bottleneck]]
 
                 # Calculate statistical significance
                 _, p_val = ttest_ind(random_i_ups[bottleneck], i_ups)
