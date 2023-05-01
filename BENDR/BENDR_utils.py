@@ -162,7 +162,7 @@ class FullBENDR(BENDRClassification, BENDR):
             self.device = torch.device(device)
             self.to(self.device)
         else:
-            self.device = None
+            self.device = torch.device('cpu')
 
         self.input_shape = torch.Size((channels, samples))
         self.output_shape = torch.Size((targets, ))
@@ -258,7 +258,7 @@ class LinearBENDR(LinearHeadBENDR, BENDR):
             self.device = torch.device(device)
             self.to(self.device)
         else:
-            self.device = None
+            self.device = torch.device('cpu')
 
         self.input_shape = torch.Size((channels, samples))
         self.output_shape = torch.Size((targets, ))

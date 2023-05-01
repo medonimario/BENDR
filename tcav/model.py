@@ -11,7 +11,7 @@ import BENDR.dn3_ext as dn3_ext
 
 #import os
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class ModelWrapper(object):
     __metaclass__ = ABCMeta
@@ -26,10 +26,10 @@ class ModelWrapper(object):
         pass
 
     def get_gradient(self, acts, y, bottleneck_name):
-        inputs = torch.autograd.Variable(torch.tensor(np.array(acts)).to(device), requires_grad=True)
+        inputs = torch.autograd.Variable(torch.tensor(np.array(acts)).to(self.model.device), requires_grad=True)
         #targets = (y[0] * torch.ones(inputs.size(0))).long().to(device)
 
-        cutted_model = self.get_cutted_model(bottleneck_name).to(device)
+        cutted_model = self.get_cutted_model(bottleneck_name).to(self.model.device)
         cutted_model.eval()
         outputs = cutted_model(inputs)
 
@@ -64,14 +64,24 @@ class ModelWrapper(object):
 
         handle = self.model._modules[bottleneck_name].register_forward_hook(save_activation_hook)
 
-        self.model.to(device)
-        #print(examples.shape)
-        #inputs = torch.FloatTensor(examples).permute(0, 3, 1, 2).to(device)
-        inputs = torch.FloatTensor(examples).to(device)
+        self.model.to(self.model.device)
         self.model.eval()
-        self.model(inputs)
-        acts = bn_activation.detach().cpu().numpy()
-        handle.remove()
+        
+        
+        try:
+            inputs = examples.to(self.model.device)
+            self.model(inputs)
+            acts = bn_activation.detach().cpu().numpy()
+            del inputs
+            handle.remove()
+            torch.cuda.empty_cache()
+        
+        except Exception as e:
+            print("Error:", e)
+            print("Example shape:", examples.shape)
+            #print("Example:", examples)
+            print("bn_activation:", bn_activation)
+            exit()        
 
         return acts
     
