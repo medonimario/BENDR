@@ -1,10 +1,7 @@
 import os, sys
 sys.path.append(os.getcwd())
 
-import torch
-from tqdm import tqdm
-import BENDR.BENDR_utils as BENDR_utils
-from BENDR.BENDR_utils import LinearBENDR, LinearHeadBENDR
+from BENDR.BENDR_utils import LinearBENDR
 from matplotlib import pyplot as plt
 import activation_generator as act_gen
 import numpy as np
@@ -15,64 +12,7 @@ import datetime
 from model import EEGWrapper, BENDR_cutted
 import pickle
 import activation_generator as act_gen
-
-folder_path = Path('/work1/s194260/checkpoints')
-data_dir = Path("/work1/s194260/")
-
-encoder_weights = folder_path / 'encoder_BENDR_linear_2_1024_20.pt'
-enc_augment_weights = folder_path / 'enc_augment_BENDR_linear_2_1024_20.pt'
-classifier_weights = folder_path / 'classifier_BENDR_linear_2_1024_20.pt'
-extended_classifier_weights = folder_path / 'extended_classifier_BENDR_linear_2_1024_20.pt'
-
-model = LinearBENDR(targets=2, samples=1024, channels=20, device='cpu')
-model.load_all(encoder_weights, enc_augment_weights, classifier_weights, extended_classifier_weights)
-model = model.train(False)
-
-now = datetime.datetime.now()
-date = now.strftime("%m%d%H%M%S")
-
-source_dir = data_dir / 'class_data'
-results_dir =  data_dir / 'tcav_results' 
-activation_dir = data_dir / 'activations' / f'activations_{date}'
-cav_dir = data_dir / 'cavs' / f'cavs_{date}'
-
-os.mkdir(activation_dir)
-os.mkdir(cav_dir)
-
-bottlenecks = ['encoder', 'enc_augment', 'summarizer', 'extended_classifier', 'classifier']
-alphas = [0.1]
-
-target =  'Left fist, performed'
-
-# concepts are stored in folders with these names
-# concepts = []
-# concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
-#             "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
-#             "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
-#             "Alpha_Premotor Cortex-lh", "Alpha_Premotor Cortex-rh",
-#             "Alpha_Primary Visual Cortex (V1)-lh","Alpha_Primary Visual Cortex (V1)-rh",
-#             "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
-#             "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
-concepts = ['Left fist, imagined', 'Right fist, imagined']
-#concepts = ['random_original']
-
-# concepts = ['Alpha_Somatosensory and Motor Cortex-lh', 'Alpha_Somatosensory and Motor Cortex-rh',
-#             'Alpha_Primary Visual Cortex (V1)-lh', 'Alpha_Primary Visual Cortex (V1)-rh',
-#             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
-#             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh']
-
-# concepts = ['Alpha_Premotor Cortex-lh', 'Alpha_Premotor Cortex-rh',
-#             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh',
-#             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
-#             'Alpha_MT+ Complex and Neighboring Visual Areas-lh', 'Alpha_MT+ Complex and Neighboring Visual Areas-rh',
-#             'Alpha_Dorsal Stream Visual Cortex-lh', 'Alpha_Dorsal Stream Visual Cortex-rh']
-
-# Go through each folder in source_dir add add the name of the folder to concepts list if it has more than 25 .pkl files in it
-# for concept in os.listdir(source_dir):
-#     if len(os.listdir(os.path.join(source_dir, concept))) > 25:
-#         concepts.append(concept)
-
-labels = ['Left fist, performed', 'Right fist, performed']
+import argparse
 
 class BENDRWrapper(EEGWrapper) : 
     def __init__(self, model, labels, sample_length_target):
@@ -86,28 +26,97 @@ class BENDRWrapper(EEGWrapper) :
 
     def get_cutted_model(self, bottleneck):
         return BENDR_cutted(self.model, bottleneck)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--concept_folder', default='class_data', type=str, help='Folder with concepts')
+    parser.add_argument('--concepts', default=[], nargs='+', type=str, help='Concepts to run')
+    parser.add_argument('--data_path', default='/work1/s194260/', type=str, help='Path to data')
+    args = parser.parse_args()
     
-tcav_model = BENDRWrapper(model, labels, 1024)
+    concept_folder = Path(args.concept_folder)
+    concepts = args.concepts    
+    data_path = Path(args.data_path)
+    
+    model_path = data_path / Path('checkpoints')
+    
 
-act_generator = act_gen.EEGActivationGenerator(
-   tcav_model, source_dir, activation_dir, max_examples=25
-   )
+    encoder_weights = model_path / 'encoder_BENDR_linear_2_1024_20.pt'
+    enc_augment_weights = model_path / 'enc_augment_BENDR_linear_2_1024_20.pt'
+    classifier_weights = model_path / 'classifier_BENDR_linear_2_1024_20.pt'
+    extended_classifier_weights = model_path / 'extended_classifier_BENDR_linear_2_1024_20.pt'
 
-tf.compat.v1.logging.set_verbosity(2)
-num_random_exp = 3
+    model = LinearBENDR(targets=2, samples=1024, channels=20, device='cpu')
+    model.load_all(encoder_weights, enc_augment_weights, classifier_weights, extended_classifier_weights)
+    model = model.train(False)
 
-my_tcav = tcav.TCAV(target,
-                   concepts,
-                   bottlenecks,
-                   act_generator,
-                   alphas,
-                   cav_dir=cav_dir,
-                   num_random_exp=num_random_exp)
+    now = datetime.datetime.now()
+    date = now.strftime("%m%d%H%M%S")
 
-print('Loading mytcav')
-results = my_tcav.run(run_parallel = True)
+    source_dir = data_path / concept_folder
+    results_dir =  data_path / 'tcav_results' 
+    activation_dir = data_path / 'activations' / f'activations_{date}'
+    cav_dir = data_path / 'cavs' / f'cavs_{date}'
 
-# Save dictionary that also contains numpy array
-with open(f'tcav_results_{date}_left', 'wb') as handle:
-    pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    os.mkdir(activation_dir)
+    os.mkdir(cav_dir)
+
+    bottlenecks = ['encoder', 'enc_augment', 'summarizer', 'extended_classifier', 'classifier']
+    alphas = [0.1]
+
+    target =  'Left fist, performed'
+
+    # concepts are stored in folders with these names
+    # concepts = []
+    # concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
+    #             "Alpha_Early Visual Cortex-lh", "Alpha_Early Visual Cortex-rh",
+    #             "Alpha_MT+ Complex and Neighboring Visual Areas-lh", "Alpha_MT+ Complex and Neighboring Visual Areas-rh",
+    #             "Alpha_Premotor Cortex-lh", "Alpha_Premotor Cortex-rh",
+    #             "Alpha_Primary Visual Cortex (V1)-lh","Alpha_Primary Visual Cortex (V1)-rh",
+    #             "Alpha_Somatosensory and Motor Cortex-lh", "Alpha_Somatosensory and Motor Cortex-rh",
+    #             "Alpha_Ventral Stream Visual Cortex-lh", "Alpha_Ventral Stream Visual Cortex-rh"]
+    #concepts = ['random_original']
+
+    # concepts = ['Alpha_Somatosensory and Motor Cortex-lh', 'Alpha_Somatosensory and Motor Cortex-rh',
+    #             'Alpha_Primary Visual Cortex (V1)-lh', 'Alpha_Primary Visual Cortex (V1)-rh',
+    #             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
+    #             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh']
+
+    # concepts = ['Alpha_Premotor Cortex-lh', 'Alpha_Premotor Cortex-rh',
+    #             'Alpha_Early Visual Cortex-lh', 'Alpha_Early Visual Cortex-rh',
+    #             'Alpha_Orbital and Polar Frontal Cortex-lh', 'Alpha_Orbital and Polar Frontal Cortex-rh',
+    #             'Alpha_MT+ Complex and Neighboring Visual Areas-lh', 'Alpha_MT+ Complex and Neighboring Visual Areas-rh',
+    #             'Alpha_Dorsal Stream Visual Cortex-lh', 'Alpha_Dorsal Stream Visual Cortex-rh']
+
+    # Go through each folder in source_dir add add the name of the folder to concepts list if it has more than 25 .pkl files in it
+    # for concept in os.listdir(source_dir):
+    #     if len(os.listdir(os.path.join(source_dir, concept))) > 25:
+    #         concepts.append(concept)
+
+    labels = ['Left fist, performed', 'Right fist, performed']
+        
+    tcav_model = BENDRWrapper(model, labels, 1024)
+
+    act_generator = act_gen.EEGActivationGenerator(
+    tcav_model, source_dir, activation_dir, max_examples=25
+    )
+
+    tf.compat.v1.logging.set_verbosity(2)
+    num_random_exp = 3
+
+    my_tcav = tcav.TCAV(target,
+                    concepts,
+                    bottlenecks,
+                    act_generator,
+                    alphas,
+                    cav_dir=cav_dir,
+                    num_random_exp=num_random_exp)
+
+    print('Loading mytcav')
+    results = my_tcav.run(run_parallel = False)
+
+    # Save dictionary that also contains numpy array
+    with open(data_path / f'tcav_results_{date}_{str(concept_folder)}', 'wb') as handle:
+        pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
 

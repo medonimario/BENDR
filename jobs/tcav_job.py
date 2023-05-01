@@ -14,6 +14,10 @@ exp_name = "random"
 now = datetime.datetime.now()
 now_str = now.strftime("%H%M%S_%d%m%y")
 
+concepts_folder = f"class_data"
+concepts = ['Left fist, performed', 'Right fist, performed']
+concepts = "'" + "' '".join(concepts) + "'"
+
 name = f"BENDR"
 
 job = f"""#!/bin/sh
@@ -28,7 +32,7 @@ job = f"""#!/bin/sh
 module load scipy/1.9.1-python-3.10.7
 module load cuda/11.7 
 source /work1/s194260/BENDR-ENV/bin/activate
-python3.10 tcav/tcav_run.py"""
+python3.10 tcav/tcav_run.py --concept_folder {concepts_folder} --concepts {concepts}"""
 
 with open('temp_submit.sh', 'w') as file:
     file.write(job)

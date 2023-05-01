@@ -115,7 +115,7 @@ class CAV(object):
       labels.extend([i] * min_data_points)
       labels2text[i] = concept
     
-    x = np.array(x) #dtype = object)
+    x = np.array(x, dtype = object)
     labels = np.array(labels)
 
     return x, labels, labels2text
