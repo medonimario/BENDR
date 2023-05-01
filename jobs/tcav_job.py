@@ -22,10 +22,10 @@ name = f"BENDR"
 job = f"""#!/bin/sh
 #BSUB -J {name}
 #BSUB -q hpc
-#BSUB -n 15
+#BSUB -n 20
 #BSUB -R "rusage[mem=8G]"
 #BSUB -R "span[hosts=1]"
-#BSUB -W 1:00
+#BSUB -W 12:00
 #BSUB -o logs/output_{name}_%J.out 
 #BSUB -e logs/error_{name}_%J.err 
 module load scipy/1.9.1-python-3.10.7
