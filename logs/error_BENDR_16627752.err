@@ -1,0 +1,309 @@
+Loaded dependency [numpy/1.23.3-python-3.10.7-openblas-0.3.21]: openblas/0.3.21
+Loaded dependency [python3/3.10.7]: gcc/11.3.0-binutils-2.38
+Loaded dependency [numpy/1.23.3-python-3.10.7-openblas-0.3.21]: python3/3.10.7
+Loaded dependency [scipy/1.9.1-python-3.10.7]: numpy/1.23.3-python-3.10.7-openblas-0.3.21
+Loaded module: scipy/1.9.1-python-3.10.7
+
+Loading scipy/1.9.1-python-3.10.7
+  Loading requirement: openblas/0.3.21 gcc/11.3.0-binutils-2.38 python3/3.10.7
+    numpy/1.23.3-python-3.10.7-openblas-0.3.21
+Loaded module: cuda/11.7
+2023-05-01 22:42:21.333996: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-05-01 22:42:25.579628: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+INFO:tensorflow:encoder ['Left fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['Left fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['Left fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['Right fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['Right fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['Right fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_0', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_0', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_1', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_1', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_2', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:encoder ['random500_2', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Left fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Left fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Left fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Right fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Right fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['Right fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_0', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_0', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_1', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_1', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_2', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:enc_augment ['random500_2', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Left fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Left fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Left fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Right fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Right fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['Right fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_0', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_0', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_1', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_1', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_2', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:summarizer ['random500_2', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Left fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Left fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Left fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Right fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Right fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['Right fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_0', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_0', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_1', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_1', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_2', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:extended_classifier ['random500_2', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Left fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Left fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Left fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Right fist, imagined', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Right fist, imagined', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['Right fist, imagined', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_0', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_0', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_1', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_1', 'random500_2'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_2', 'random500_0'] Left fist, performed 0.1
+INFO:tensorflow:classifier ['random500_2', 'random500_1'] Left fist, performed 0.1
+INFO:tensorflow:TCAV will 60 params
+INFO:tensorflow:running 60 params
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_0']
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_1']
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_2']
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_0']
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_1']
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Right fist, imagined_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Right fist, imagined_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_0_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_1_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_1_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_2_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_0_encoder does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder does not exist, Making one...
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_1'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'Left fist, imagined': 1.0, 'random500_1': 1.0, 'overall': 1.0}
+INFO:tensorflow:CAV accuracies: {'Left fist, imagined': 1.0, 'random500_1': 1.0, 'overall': 1.0}
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder does not exist, Making one...
+INFO:tensorflow:Training CAV ['Right fist, imagined', 'random500_1'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder does not exist, Making one...
+INFO:tensorflow:acc per class {'Right fist, imagined': 1.0, 'random500_1': 1.0, 'overall': 1.0}
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder does not exist, Making one...
+INFO:tensorflow:CAV accuracies: {'Right fist, imagined': 1.0, 'random500_1': 1.0, 'overall': 1.0}
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_2'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:Training CAV ['Right fist, imagined', 'random500_0'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder does not exist, Making one...
+INFO:tensorflow:acc per class {'Left fist, imagined': 1.0, 'random500_2': 1.0, 'overall': 1.0}
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_0'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'Right fist, imagined': 1.0, 'random500_0': 0.5, 'overall': 0.75}
+INFO:tensorflow:CAV accuracies: {'Left fist, imagined': 1.0, 'random500_2': 1.0, 'overall': 1.0}
+INFO:tensorflow:CAV accuracies: {'Right fist, imagined': 1.0, 'random500_0': 0.5, 'overall': 0.75}
+INFO:tensorflow:acc per class {'Left fist, imagined': 1.0, 'random500_0': 0.5, 'overall': 0.75}
+INFO:tensorflow:CAV accuracies: {'Left fist, imagined': 1.0, 'random500_0': 0.5, 'overall': 0.75}
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_2']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Right fist, imagined_encoder shape (25, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['Right fist, imagined', 'random500_2'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'Right fist, imagined': 1.0, 'random500_2': 1.0, 'overall': 1.0}
+INFO:tensorflow:running Left fist, performed ['random500_0', 'random500_1']
+INFO:tensorflow:CAV accuracies: {'Right fist, imagined': 1.0, 'random500_2': 1.0, 'overall': 1.0}
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_encoder shape (5, 512, 11)
+INFO:tensorflow:running Left fist, performed ['random500_0', 'random500_2']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['random500_0', 'random500_1'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['random500_0', 'random500_2'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'random500_0': 0.5, 'random500_1': 0.0, 'overall': 0.25}
+INFO:tensorflow:CAV accuracies: {'random500_0': 0.5, 'random500_1': 0.0, 'overall': 0.25}
+INFO:tensorflow:running Left fist, performed ['random500_1', 'random500_0']
+INFO:tensorflow:acc per class {'random500_0': 0.0, 'random500_2': 1.0, 'overall': 0.5}
+INFO:tensorflow:running Left fist, performed ['random500_1', 'random500_2']
+INFO:tensorflow:Finished running param 1 of 60
+INFO:tensorflow:Finished running param 2 of 60
+INFO:tensorflow:Finished running param 3 of 60
+INFO:tensorflow:Finished running param 4 of 60
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_encoder shape (5, 512, 11)
+INFO:tensorflow:CAV accuracies: {'random500_0': 0.0, 'random500_2': 1.0, 'overall': 0.5}
+INFO:tensorflow:Finished running param 5 of 60
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['random500_1', 'random500_2'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:Training CAV ['random500_1', 'random500_0'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'random500_1': 0.0, 'random500_0': 0.0, 'overall': 0.0}
+INFO:tensorflow:CAV accuracies: {'random500_1': 0.0, 'random500_0': 0.0, 'overall': 0.0}
+/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py:702: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  warnings.warn(
+INFO:tensorflow:acc per class {'random500_1': 1.0, 'random500_2': 0.0, 'overall': 0.5}
+INFO:tensorflow:CAV accuracies: {'random500_1': 1.0, 'random500_2': 0.0, 'overall': 0.5}
+INFO:tensorflow:running Left fist, performed ['random500_2', 'random500_0']
+INFO:tensorflow:Finished running param 6 of 60
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['random500_2', 'random500_0'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'random500_2': 0.0, 'random500_0': 0.0, 'overall': 0.0}
+INFO:tensorflow:CAV accuracies: {'random500_2': 0.0, 'random500_0': 0.0, 'overall': 0.0}
+INFO:tensorflow:running Left fist, performed ['random500_2', 'random500_1']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_encoder shape (5, 512, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_encoder shape (5, 512, 11)
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_0']
+INFO:tensorflow:Finished running param 7 of 60
+INFO:tensorflow:Finished running param 8 of 60
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_encoder shape (25, 512, 11)
+INFO:tensorflow:Training CAV ['random500_2', 'random500_1'] - encoder alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_1']
+INFO:tensorflow:Finished running param 9 of 60
+INFO:tensorflow:acc per class {'random500_2': 1.0, 'random500_1': 0.0, 'overall': 0.5}
+INFO:tensorflow:CAV accuracies: {'random500_2': 1.0, 'random500_1': 0.0, 'overall': 0.5}
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_2']
+INFO:tensorflow:Finished running param 10 of 60
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_1_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, imagined_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_random500_2_enc_augment does not exist, Making one...
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment does not exist, Making one...
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_0'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_2'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:acc per class {'Left fist, imagined': 1.0, 'random500_0': 0.0, 'overall': 0.5}
+INFO:tensorflow:CAV accuracies: {'Left fist, imagined': 1.0, 'random500_0': 0.0, 'overall': 0.5}
+INFO:tensorflow:acc per class {'Left fist, imagined': 1.0, 'random500_2': 0.0, 'overall': 0.5}
+INFO:tensorflow:CAV accuracies: {'Left fist, imagined': 1.0, 'random500_2': 0.0, 'overall': 0.5}
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment does not exist, Making one...
+INFO:tensorflow:Training CAV ['Left fist, imagined', 'random500_1'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_0']
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_1']
+INFO:tensorflow:Finished running param 11 of 60
+INFO:tensorflow:running Left fist, performed ['Right fist, imagined', 'random500_2']
+INFO:tensorflow:running Left fist, performed ['random500_0', 'random500_1']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_enc_augment shape (1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+INFO:tensorflow:Training CAV ['random500_0', 'random500_1'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+INFO:tensorflow:running Left fist, performed ['random500_0', 'random500_2']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+INFO:tensorflow:Training CAV ['random500_0', 'random500_2'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+INFO:tensorflow:running Left fist, performed ['random500_1', 'random500_0']
+INFO:tensorflow:Finished running param 12 of 60
+INFO:tensorflow:Finished running param 13 of 60
+TypeError: only size-1 arrays can be converted to Python scalars
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_enc_augment shape (1536, 11)
+  File "/zhome/33/6/147533/BENDR/tcav/tcav_run.py", line 108, in <module>
+INFO:tensorflow:/work1/s194260/activations/activations_0501224232/acts_Right fist, imagined_enc_augment does not exist, Making one...
+    results = my_tcav.run(run_parallel = True)
+  File "/zhome/33/6/147533/BENDR/tcav/tcav.py", line 192, in run
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment shape (5, 1536, 11)
+    for i, res in enumerate(pool.imap(
+  File "/appl/python/3.10.7/lib/python3.10/multiprocessing/pool.py", line 873, in next
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:acc per class {'random500_0': 0.0, 'random500_2': 0.5, 'overall': 0.25}
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+    raise value
+  File "/appl/python/3.10.7/lib/python3.10/multiprocessing/pool.py", line 125, in worker
+INFO:tensorflow:Training CAV ['random500_1', 'random500_0'] - enc_augment alpha 0.1
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+INFO:tensorflow:CAV accuracies: {'random500_0': 0.0, 'random500_2': 0.5, 'overall': 0.25}
+    result = (True, func(*args, **kwds))
+  File "/zhome/33/6/147533/BENDR/tcav/tcav.py", line 193, in <lambda>
+INFO:tensorflow:Training CAV ['Right fist, imagined', 'random500_0'] - enc_augment alpha 0.1
+    lambda p: self._run_single_set(
+INFO:tensorflow:running Left fist, performed ['random500_1', 'random500_2']
+  File "/zhome/33/6/147533/BENDR/tcav/tcav.py", line 240, in _run_single_set
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+    cav_instance = get_or_train_cav(
+INFO:tensorflow:running Left fist, performed ['random500_2', 'random500_0']
+  File "/zhome/33/6/147533/BENDR/tcav/cav.py", line 304, in get_or_train_cav
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_enc_augment shape (1536, 11)
+    cav_instance.train({c: acts[c] for c in concepts})
+  File "/zhome/33/6/147533/BENDR/tcav/cav.py", line 161, in train
+    self.accuracies = self._train_lm(lm, x, labels, labels2text)
+  File "/zhome/33/6/147533/BENDR/tcav/cav.py", line 241, in _train_lm
+    lm.fit(x_train, y_train)
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py", line 894, in fit
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_enc_augment shape (5, 1536, 11)
+    return self._fit(
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py", line 683, in _fit
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_0_enc_augment shape (5, 1536, 11)
+INFO:tensorflow:Training CAV ['random500_1', 'random500_2'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+    self._partial_fit(
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/linear_model/_stochastic_gradient.py", line 579, in _partial_fit
+INFO:tensorflow:running Left fist, performed ['random500_2', 'random500_1']
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+INFO:tensorflow:Training CAV ['random500_2', 'random500_0'] - enc_augment alpha 0.1
+    X, y = self._validate_data(
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/base.py", line 584, in _validate_data
+INFO:tensorflow:training with alpha=0.1
+    X, y = check_X_y(X, y, **check_params)
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1106, in check_X_y
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_2_enc_augment shape (5, 1536, 11)
+    X = check_array(
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_random500_1_enc_augment shape (1536, 11)
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/utils/validation.py", line 879, in check_array
+INFO:tensorflow:Loaded /work1/s194260/activations/activations_0501224232/acts_Left fist, performed_enc_augment shape (1536, 11)
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/work1/s194260/BENDR-ENV/lib/python3.10/site-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+INFO:tensorflow:acc per class {'random500_2': 0.0, 'random500_0': 0.5, 'overall': 0.25}
+INFO:tensorflow:Training CAV ['random500_2', 'random500_1'] - enc_augment alpha 0.1
+INFO:tensorflow:training with alpha=0.1
+/zhome/33/6/147533/BENDR/tcav/cav.py:118: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  x = np.array(x) #dtype = object)
+    array = numpy.asarray(array, order=order, dtype=dtype)
+INFO:tensorflow:CAV accuracies: {'random500_2': 0.0, 'random500_0': 0.5, 'overall': 0.25}
+ValueError: setting an array element with a sequence.
+INFO:tensorflow:running Left fist, performed ['Left fist, imagined', 'random500_0']
+terminate called without an active exception
+/zhome/33/6/147533/.lsbatch/1682973727.16627752.shell: line 13: 253152 Aborted                 python3.10 tcav/tcav_run.py

@@ -1,22 +1,23 @@
 import os, sys
-if not os.getcwd().endswith('BENDR'): os.chdir(os.path.dirname(os.getcwd()))
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+sys.path.append(os.getcwd())
+
 import torch
 from tqdm import tqdm
-sys.path.append("/home/s194260/BENDR")
-
-from importlib import reload
 import BENDR.BENDR_utils as BENDR_utils
-reload(BENDR_utils)
 from BENDR.BENDR_utils import LinearBENDR, LinearHeadBENDR
 from matplotlib import pyplot as plt
 import activation_generator as act_gen
 import numpy as np
 import tcav as tcav
 import tensorflow as tf
-
 from pathlib import Path
-folder_path = Path('data/checkpoints')
+import datetime
+from model import EEGWrapper, BENDR_cutted
+import pickle
+import activation_generator as act_gen
+
+folder_path = Path('/work1/s194260/checkpoints')
+data_dir = Path("/work1/s194260/")
 
 encoder_weights = folder_path / 'encoder_BENDR_linear_2_1024_20.pt'
 enc_augment_weights = folder_path / 'enc_augment_BENDR_linear_2_1024_20.pt'
@@ -26,19 +27,12 @@ extended_classifier_weights = folder_path / 'extended_classifier_BENDR_linear_2_
 model = LinearBENDR(targets=2, samples=1024, channels=20, device='cpu')
 model.load_all(encoder_weights, enc_augment_weights, classifier_weights, extended_classifier_weights)
 model = model.train(False)
-#model = model.to(torch.device('cpu'))
 
-import datetime
 now = datetime.datetime.now()
 date = now.strftime("%m%d%H%M%S")
 
-from pathlib import Path
-#data_dir = Path('/scratch/s194260')
-data_dir = Path("data/")
-
 source_dir = data_dir / 'class_data'
 results_dir =  data_dir / 'tcav_results' 
-
 activation_dir = data_dir / 'activations' / f'activations_{date}'
 cav_dir = data_dir / 'cavs' / f'cavs_{date}'
 
@@ -80,9 +74,6 @@ concepts = ['Left fist, imagined', 'Right fist, imagined']
 
 labels = ['Left fist, performed', 'Right fist, performed']
 
-from model import EEGWrapper, BENDR_cutted
-import activation_generator as act_gen
-
 class BENDRWrapper(EEGWrapper) : 
     def __init__(self, model, labels, sample_length_target):
         eeg_shape = [1, 20, sample_length_target]
@@ -103,7 +94,7 @@ act_generator = act_gen.EEGActivationGenerator(
    )
 
 tf.compat.v1.logging.set_verbosity(2)
-num_random_exp = 5
+num_random_exp = 3
 
 my_tcav = tcav.TCAV(target,
                    concepts,
@@ -117,7 +108,6 @@ print('Loading mytcav')
 results = my_tcav.run(run_parallel = True)
 
 # Save dictionary that also contains numpy array
-import pickle
-with open(f'data/tcav_results_{date}_left', 'wb') as handle:
+with open(f'tcav_results_{date}_left', 'wb') as handle:
     pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
