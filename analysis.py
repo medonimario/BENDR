@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 from pathlib import Path
 
-
 PRETTY_NAMES = {
     'mmidb': 'MMI',
     'bci_iv_2a': 'BCIC',
