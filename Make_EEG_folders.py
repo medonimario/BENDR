@@ -15,7 +15,6 @@ from utils import get_ds
 import pickle
 import random
 
-
 # renames TUH channels to conventional 10-20 system
 def TUH_rename_ch(MNE_raw=False):
     # MNE_raw
@@ -133,9 +132,6 @@ def get_and_transform_data(filepath, t1, t2):
     final_example = output1020[None, :]
     # RETURNS A TENSOR SIZE [1, CHANNELS = 20 , SAMPLES]
     return final_example
-
-
-
 
 def populate_folders(savePath, DictOfRawFiles, csvPath,  label, tlen, numExp):
     

@@ -1,27 +1,17 @@
 # BENDR 
-*BErt-like Neurophysiological Data Representation*
+*BErt-like Neuro Data Representation*
 
-![A picture of Bender from Futurama][logo]
-
-This repository contains the source code for reproducing, or extending the BERT-like self-supervision pre-training for EEG data from the article:
+This repository is a more user-friendly extension of the repository used to produce the results in the article:
 
 [BENDR: using transformers and a contrastive self-supervised learning task to learn from massive amounts of EEG data](https://arxiv.org/pdf/2101.12037.pdf)
 
-To run these scripts, you will need to use the [DN3](https://dn3.readthedocs.io/en/latest/) project. We will try to keep this updated so that it works with the latest DN3 release. If you are just looking for the BENDR model, and don't need to reproduce the article results *per se*, BENDR will be (or maybe already is if I forgot to update it here) integrated into DN3, in which case I would start there.
+If you use this code, please cite the original article.
 
-Currently, we recommend version [0.2](https://github.com/SPOClab-ca/dn3/tree/v0.2-alpha). Feel free to open an issue if you are having any trouble.
+## BErt-like Neuro Data Representation (BENDR)
+BERT-inspired Neural Data Representations (BENDR) is a method that applies successful language modeling techniques from fields like speech and image recognition to EEG data for improved brain-computer interface (BCI) classification and diagnosis. BENDR uses unlabeled data from different subjects, sessions, and tasks to learn the broader distribution of EEG data before fine-tuning on a specific task with limited labeled data.
 
-More extensive instructions are upcoming, but in essence you will need to either:
+## Repository
+The original code for BENDR is implemented using the [DN3](https://dn3.readthedocs.io/en/latest/) which is a framework for deep learning in neuroscience built on PyTorch with little to no documentation. This repository is a more user-friendly extension of the original repository. This is done by making the model into a PyTorch class with familiar methods with familiar inputs and outputs.
 
-    a)  Download the TUEG dataset and pre-train new encoder and contextualizer weights, _or_
-    b)  Use the [pre-trained model weights](https://github.com/SPOClab-ca/BENDR/releases/tag/v0.1-alpha)
-        
-Once you have a pre-trained model:
-
-    1) Add the paths of the pre-trained weights to configs/downstream.yml
-    2) Edit paths to local copies of your datasets in configs/downstream_datasets.yml
-    3) Run downstream.sh
-    
-## 
-
-[logo]: BENDR-jacking-on.gif "Bender Jacking-on"
+### Pre-trained Model
+In the original [paper](https://arxiv.org/pdf/2101.12037.pdf), the encoder and contextulizer of the model was pre-trained on [TUEG dataset](https://isip.piconepress.com/projects/tuh_eeg/html/downloads.shtml), which is a massive dataset with more than 2 TB of EEG data. For most purposes, it would be infeasible to pre-train the model on this dataset again, hence the pre-trained contextualizer weights are provided [here](https://github.com/SPOClab-ca/BENDR/releases/download/v0.1-alpha/contextualizer.pt) (584 MB) and the pre-trained encoder weights are provided [here] (https://github.com/SPOClab-ca/BENDR/releases/download/v0.1-alpha/encoder.pt) (15.2 MB).
