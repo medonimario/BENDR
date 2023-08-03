@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from multiprocessing import dummy as multiprocessing
+import multiprocessing
 from six.moves import range
 from cav import CAV
 from cav import get_or_train_cav
@@ -10,6 +10,8 @@ import utils
 import numpy as np
 import time
 import tensorflow as tf
+from tqdm import tqdm
+from functools import partial
 
 class TCAV(object):
     """TCAV object: runs TCAV for one target and a set of concepts.
@@ -67,14 +69,12 @@ class TCAV(object):
         """
         count = 0
         class_id = mymodel.label_to_id(target_class)
+        
         if run_parallel:
-            pool = multiprocessing.Pool(num_workers)
-            directions = pool.map(
-                lambda i: TCAV.get_direction_dir_sign(
-                    mymodel, np.expand_dims(class_acts[i], 0),
-                    cav, concept, class_id, examples[i]),
-                range(len(class_acts)))
-            pool.close()
+            with multiprocessing.Pool(num_workers) as pool:
+                func = partial(TCAV.get_direction_dir_sign, mymodel=mymodel, cav=cav, concept=concept, class_id=class_id)
+                directions = pool.starmap(func, zip([np.expand_dims(class_acts[i], 0) for i in range(len(class_acts))], examples))
+
             return sum(directions) / float(len(class_acts))
         else:
             for i in range(len(class_acts)):
@@ -170,7 +170,7 @@ class TCAV(object):
         self.params = self.get_params()
         tf.compat.v1.logging.info('TCAV will %s params' % len(self.params))
 
-    def run(self, num_workers=5, run_parallel=False, overwrite=False, return_proto=False):
+    def run(self, num_workers=5, run_parallel = False, run_cav_parallel=True, overwrite=False, return_proto=False):
         """Run TCAV for all parameters (concept and random), write results to html.
         Args:
           num_workers: number of workers to parallelize
@@ -187,21 +187,22 @@ class TCAV(object):
         tf.compat.v1.logging.info('running %s params' % len(self.params))
         results = []
         now = time.time()
+        
         if run_parallel:
-            pool = multiprocessing.Pool(num_workers)
-            for i, res in enumerate(pool.imap(
-                    lambda p: self._run_single_set(
-                        p, overwrite=overwrite, run_parallel=True),
-                    self.params), 1):
-                tf.compat.v1.logging.info(
-                    'Finished running param %s of %s' % (i, len(self.params)))
-                results.append(res)
-            pool.close()
+            func = partial(self._run_single_set, overwrite=overwrite, run_parallel=run_cav_parallel)
+            with multiprocessing.Pool(num_workers) as pool:
+                with tqdm(total=len(self.params)) as pbar:
+                    for res in pool.imap(func, self.params):
+                        pbar.update(1)
+                        pbar.set_description("Processing param")
+                        results.append(res)
         else:
-            for i, param in enumerate(self.params):
-                print('Running param %s of %s' % (i, len(self.params)))
-                results.append(self._run_single_set(
-                    param, overwrite=overwrite, run_parallel=True))
+            with tqdm(total = len(self.params)) as pbar:
+                for param in self.params:
+                    pbar.set_description('Running param')
+                    pbar.update(1)
+                    results.append(self._run_single_set(
+                        param, overwrite=overwrite, run_parallel=run_cav_parallel))
 
         print('Done running %s params. Took %s seconds...' % (len(
             self.params), time.time() - now))
