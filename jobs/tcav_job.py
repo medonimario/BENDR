@@ -1,10 +1,9 @@
 import os, time, datetime
-os.chdir('/zhome/33/6/147533/BENDR/')
-
 now = datetime.datetime.now()
 now_str = now.strftime("%H%M%S_%d%m%y")
 
-data_path = '/work1/s194260/'
+#data_path = '/work1/s194260/'
+data_path = '/scratch/s194260/'
 concepts_folder = f"TUH_clean_all_divide_Falsesigma_Falseabs_100.0_210702_010523"
 
 concepts = ["Alpha_Dorsal Stream Visual Cortex-lh", "Alpha_Dorsal Stream Visual Cortex-rh",
