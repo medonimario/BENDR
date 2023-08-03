@@ -3,9 +3,9 @@ import argparse
 
 import numpy as np
 
-import utils
-from dn3_ext import ConvEncoderBENDR, BENDRContextualizer, BendingCollegeWav2Vec
-from result_tracking import ThinkerwiseResultTracker
+import BENDR.utils
+from BENDR.dn3_ext import ConvEncoderBENDR, BENDRContextualizer, BendingCollegeWav2Vec
+from BENDR.result_tracking import ThinkerwiseResultTracker
 
 from dn3.configuratron import ExperimentConfig
 from dn3.transforms.instance import TemporalCrop

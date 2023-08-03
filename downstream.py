@@ -117,14 +117,6 @@ if __name__ == '__main__':
                 else:
                     results.add_results_all_thinkers(process, ds_name, test, Fold=fold+1)
                 results.to_spreadsheet(args.results_filename)
-            
-            # torch.save(model.encoder.state_dict(), 'encoder_BENDR_linear_2_1024_20.pt')
-            # torch.save(model.enc_augment.state_dict(), 'enc_augment_BENDR_linear_2_1024_20.pt')
-            # torch.save(model.classifier.state_dict(), 'classifier_BENDR_linear_2_1024_20.pt')
-            # torch.save(model.extended_classifier.state_dict(), 'extended_classifier_BENDR_linear_2_1024_20.pt')
-            
-            # time.sleep(30)
-            # exit()
 
             # explicitly garbage collect here, don't want to fit two models in GPU at once
             del process

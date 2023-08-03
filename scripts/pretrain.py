@@ -2,7 +2,7 @@ import torch
 import tqdm
 import argparse
 
-from dn3_ext import BendingCollegeWav2Vec, ConvEncoderBENDR, BENDRContextualizer
+from BENDR.dn3_ext import BendingCollegeWav2Vec, ConvEncoderBENDR, BENDRContextualizer
 from dn3.configuratron import ExperimentConfig
 from dn3.transforms.instance import To1020
 from dn3.transforms.batch import RandomTemporalCrop
