@@ -1,7 +1,7 @@
 # BENDR 
 *BERT-inspired Neural Data Representations*
 
-This repository is an builds on the BENDR repository by Anders G. Madsen, which is itself a more user-friendly extension of the original BENDR repository described in:
+This repository builds on the BENDR repository by Anders G. Madsen, which is itself a more user-friendly extension of the original BENDR repository described in:
 
 [BENDR: using transformers and a contrastive self-supervised learning task to learn from massive amounts of EEG data](https://arxiv.org/pdf/2101.12037.pdf)
 
