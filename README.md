@@ -1,9 +1,13 @@
 # BENDR 
-*BErt-like Neuro Data Representation*
+*BERT-inspired Neural Data Representations*
 
-This repository is a more user-friendly extension of the repository used to produce the results in the article:
+This repository is an builds on the BENDR repository by Anders G. Madsen, which is itself a more user-friendly extension of the original BENDR repository described in:
 
 [BENDR: using transformers and a contrastive self-supervised learning task to learn from massive amounts of EEG data](https://arxiv.org/pdf/2101.12037.pdf)
+
+My own contributions are the six "epochs2BENDR" python files that use BENDR's feature encoder to transform epoched EEG data into BENDR-derived feature vectors. This was for my specific use within my bachelor project: "Modern Approaches in Representing Inter­-brain Oscillations: A Comparative Study of BENDR and TFA in Two­-Brain EEG Analysis". The six python files are very similar, with slight differences in methods employed in order to get BENDRs using three different approaches: Normalization, Partial Normalization, No Normalization of the 19 EEG channels before running them through the feature encoder. The files containing the "_10Hz" extension further augment the experimental data creating a synthetic dataset.
+
+# Some additional useful instructions from Madsen's repository:
 
 If you use this code, please cite the original article.
 
